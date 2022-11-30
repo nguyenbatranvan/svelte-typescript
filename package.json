@@ -25,6 +25,7 @@
     "vite-tsconfig-paths": "^3.6.0"
   },
   "dependencies": {
+    "@rgossiaux/svelte-headlessui": "^1.0.2",
     "axios": "^1.2.0",
     "svelte-forms-lib": "^2.0.1",
     "svelte-navigator": "^3.2.2",

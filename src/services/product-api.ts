@@ -1,4 +1,5 @@
 import type {ApiRequestModel} from "~/models/api-request-model";
+import type {ProductModel} from "~/models/product-model";
 import {BaseService} from "~/services/core";
 
 class ProductApi extends BaseService {
@@ -7,7 +8,7 @@ class ProductApi extends BaseService {
     }
 
     getProducts(data: Partial<ApiRequestModel>) {
-        return this.get({
+        return this.get<ProductModel[]>({
             ...data,
             url: 'https://dummyjson.com/products'
         });

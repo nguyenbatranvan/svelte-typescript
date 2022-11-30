@@ -3,6 +3,5 @@ export interface Test {
 }
 
 export default function Click() {
-    console.log('18282')
 }
 

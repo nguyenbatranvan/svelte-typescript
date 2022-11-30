@@ -8,6 +8,7 @@
     const Blogs = () => import("~/pages/Blogs.svelte")
     const Products = () => import("~/pages/Products.svelte")
     const Login = () => import("~/pages/Login.svelte")
+    const Tasks = () => import("~/pages/Tasks.svelte")
 </script>
 <Router>
 
@@ -15,13 +16,10 @@
     <PrivateRoute>
         <Route path="">
             <Layout>
-                <Route path="*">
-                    404
-                </Route>
+
                 {#await import("~/lib/Counter.svelte") then value}
                     <div>
                         <svelte:component this={value.default}/>
-                        <h1>83737</h1>
                     </div>
                 {:catch error}
                     <p>Load component error</p>
@@ -32,6 +30,12 @@
                 <LazyRoute component={Blogs} path="/blogs/*">
                     <h1>....</h1>
                 </LazyRoute>
+                <LazyRoute component={Tasks} path="/tasks/*">
+                    <h1>....</h1>
+                </LazyRoute>
+                <Route path="*">
+                    404
+                </Route>
             </Layout>
 
         </Route>

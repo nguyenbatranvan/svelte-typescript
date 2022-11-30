@@ -5,7 +5,7 @@
     const navigate = useNavigate();
     const location = useLocation();
 
-    $: if (!$user) {
+    $: if (!sessionStorage.getItem("user")) {
         navigate("/login", {
             state: { from: $location.pathname },
             replace: true,
@@ -13,6 +13,6 @@
     }
 </script>
 
-{#if $user}
+{#if sessionStorage.getItem("user")}
     <slot />
 {/if}

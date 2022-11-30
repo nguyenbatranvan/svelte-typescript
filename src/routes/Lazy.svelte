@@ -9,7 +9,6 @@
 
     let props;
     $: {
-        console.log('props', $$props);
         const {component, delayMs, ...restProps} = $$props;
         props = restProps;
     }

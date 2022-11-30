@@ -1,13 +1,18 @@
-export class Product {
-    a: string = "";
+import {BaseModel} from "~/models/base-model";
+
+export class ProductModel extends BaseModel {
+    title: string;
+    description: string;
+    price: number;
+    discountPercentage: number;
+    rating: number;
+    stock: number;
+    brand: string;
+    category: string;
+    thumbnail: string;
+    images: string[]
 
     constructor() {
-    }
-
-    setProdcut() {
-        console.log('products')
+        super();
     }
 }
-
-const TProduct = new Product();
-export default TProduct;

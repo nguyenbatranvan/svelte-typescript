@@ -6,7 +6,7 @@
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {form, errors, state, handleChange, handleSubmit} = createForm({
+    const {form, errors, handleChange, handleSubmit} = createForm({
         initialValues: {
             password: "",
             email: ""
@@ -21,133 +21,168 @@
     });
 
     function handleLogin() {
-        user.set({...$form});
+        // user.set({...$form});
+        sessionStorage.setItem('user', new Date().getTime().toString());
         const from = ($location.state && $location.state.from) || "/";
         navigate(from, {replace: true});
     }
 </script>
-<section class="h-screen">
-    <div class="container px-6 py-12 h-full">
-        <div class="flex justify-center items-center flex-wrap h-full g-6 text-gray-800">
-            <div class="md:w-8/12 lg:w-6/12 mb-12 md:mb-0">
-                <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                        class="w-full"
-                        alt="Phone image"
-                />
-            </div>
-            <div class="md:w-8/12 lg:w-5/12 lg:ml-20">
-                <form on:submit={handleSubmit}>
-                    <!-- Email input -->
-                    <div class="mb-6">
-                        <input
-                                type="text"
-                                on:keyup={handleChange}
-                                name="email"
-                                bind:value={$form.email}
-                                class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                placeholder="Email address"
-                        />
-                        {#if $errors.email}
-                            <small class="text-red-500">{$errors.email}</small>
-                        {/if}
-                    </div>
+<div class="bg-gray-200 w-full min-h-screen flex items-center justify-center">
+    <div class="w-full py-8">
+        <div class="flex items-center justify-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-600" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
+            </svg>
+            <h1 class="text-3xl font-bold text-blue-600 tracking-wider">Template</h1>
+        </div>
+        <div class="bg-white w-5/6 md:w-3/4 lg:w-2/3 xl:w-[500px] 2xl:w-[550px] mt-8 mx-auto px-16 py-8 rounded-lg shadow-2xl">
 
-                    <!-- Password input -->
-                    <div class="mb-6">
-                        <input
-                                bind:value={$form.password}
-                                on:keyup={handleChange}
-                                type="password"
-                                name="password"
-                                class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                placeholder="Password"
-                        />
+            <h2 class="text-center text-2xl font-bold tracking-wide text-gray-800">Sign In</h2>
+            <!--            <p class="text-center text-sm text-gray-600 mt-2">Already have an account? <a href="#"-->
+            <!--                                                                                          class="text-blue-600 hover:text-blue-700 hover:underline"-->
+            <!--                                                                                          title="Sign In">Sign in-->
+            <!--                here</a></p>-->
+
+            <form class="my-8 text-sm">
+
+
+                <div class="flex flex-col my-4">
+                    <label for="email" class="text-gray-700">Username</label>
+                    <input type="email" name="email" id="email"
+                           bind:value={$form.email}
+                           on:keyup={handleChange}
+                           class="mt-2 p-2 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+                           placeholder="Enter your email">
+                    {#if $errors.email}
+                        <small class="text-red-500">{$errors.email}</small>
+                    {/if}
+                </div>
+
+                <div class="flex flex-col my-4">
+                    <label for="password" class="text-gray-700">Password</label>
+                    <div class="relative w-full  mt-2">
+                        <input bind:value={$form.password} name="password" id="password"
+                               on:keyup={handleChange}
+                               class="flex-1 w-full p-2 pr-10 border border-gray-300 focus:outline-none focus:ring-0 focus:border-gray-300 rounded text-sm text-gray-900"
+                               placeholder="Enter your password" type="password">
                         {#if $errors.password}
                             <small class="text-red-500">{$errors.password}</small>
                         {/if}
-                    </div>
 
-                    <div class="flex justify-between items-center mb-6">
-                        <div class="form-group form-check">
-                            <input
-                                    on:keyup={handleChange}
-                                    type="checkbox"
-                                    class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                                    id="exampleCheck3"
-                                    checked
-                            />
-                            <label class="form-check-label inline-block text-gray-800">Remember me</label>
-                        </div>
-                        <a
-                                href="#!"
-                                class="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
-                        >Forgot password?</a
-                        >
                     </div>
+                </div>
 
-                    <!-- Submit button -->
-                    <button
-                            type="submit"
-                            class="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
-                            data-mdb-ripple="true"
-                            data-mdb-ripple-color="light"
-                    >
-                        Sign in {Object.keys(errors).length}
+
+                <div class="flex items-center">
+                    <input type="checkbox" name="remember_me" id="remember_me" class="mr-2 focus:ring-0 rounded">
+                    <label for="remember_me" class="text-gray-700">I accept the <a href="#"
+                                                                                   class="text-blue-600 hover:text-blue-700 hover:underline">terms</a>
+                        and <a href="#" class="text-blue-600 hover:text-blue-700 hover:underline">privacy
+                            policy</a></label>
+                </div>
+
+                <div class="my-4 flex items-center justify-end space-x-4">
+                    <button on:click={handleLogin}
+                            class="bg-blue-600 hover:bg-blue-700 rounded-lg px-8 py-2 text-gray-100 hover:shadow-xl transition duration-150 uppercase">
+                        Signin
                     </button>
+                </div>
+            </form>
 
-                    <div
-                            class="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
-                    >
-                        <p class="text-center font-semibold mx-4 mb-0">OR</p>
-                    </div>
+            <div class="flex items-center justify-between">
+                <div class="w-full h-[1px] bg-gray-300"></div>
+                <span class="text-sm uppercase mx-6 text-gray-400">Or</span>
+                <div class="w-full h-[1px] bg-gray-300"></div>
+            </div>
 
-                    <a
-                            class="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center mb-3"
-                            style="background-color: #3b5998"
-                            href="#!"
-                            role="button"
-                            data-mdb-ripple="true"
-                            data-mdb-ripple-color="light"
-                    >
-                        <!-- Facebook -->
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 320 512"
-                                class="w-3.5 h-3.5 mr-2"
-                        >
-                            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                            <path
-                                    fill="currentColor"
-                                    d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
-                            />
-                        </svg>
-                        Continue with Facebook
-                    </a>
-                    <a
-                            class="px-7 py-3 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full flex justify-center items-center"
-                            style="background-color: #55acee"
-                            href="#!"
-                            role="button"
-                            data-mdb-ripple="true"
-                            data-mdb-ripple-color="light"
-                    >
-                        <!-- Twitter -->
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 512 512"
-                                class="w-3.5 h-3.5 mr-2"
-                        >
-                            <!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
-                            <path
-                                    fill="currentColor"
-                                    d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"
-                            />
-                        </svg>
-                        Continue with Twitter
-                    </a>
-                </form>
+            <div class="text-sm">
+                <a href="#"
+                   class="flex items-center justify-center space-x-2 text-gray-600 my-2 py-2 bg-gray-100 hover:bg-gray-200 rounded">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326667 333333"
+                         shape-rendering="geometricPrecision" text-rendering="geometricPrecision"
+                         image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd">
+                        <path d="M326667 170370c0-13704-1112-23704-3518-34074H166667v61851h91851c-1851 15371-11851 38519-34074 54074l-311 2071 49476 38329 3428 342c31481-29074 49630-71852 49630-122593m0 0z"
+                              fill="#4285f4"></path>
+                        <path d="M166667 333333c44999 0 82776-14815 110370-40370l-52593-40742c-14074 9815-32963 16667-57777 16667-44074 0-81481-29073-94816-69258l-1954 166-51447 39815-673 1870c27407 54444 83704 91852 148890 91852z"
+                              fill="#34a853"></path>
+                        <path d="M71851 199630c-3518-10370-5555-21482-5555-32963 0-11482 2036-22593 5370-32963l-93-2209-52091-40455-1704 811C6482 114444 1 139814 1 166666s6482 52221 17777 74814l54074-41851m0 0z"
+                              fill="#fbbc04"></path>
+                        <path d="M166667 64444c31296 0 52406 13519 64444 24816l47037-45926C249260 16482 211666 1 166667 1 101481 1 45185 37408 17777 91852l53889 41853c13520-40185 50927-69260 95001-69260m0 0z"
+                              fill="#ea4335"></path>
+                    </svg>
+                    <span>Sign up with Google</span>
+                </a>
+                <a href="#"
+                   class="flex items-center justify-center space-x-2 text-gray-600 my-2 py-2 bg-gray-100 hover:bg-gray-200 rounded">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                         viewBox="0 0 124.8 123.36">
+                        <defs>
+                            <style>.cls-1, .cls-2 {
+                                fill: none;
+                            }
+
+                            .cls-1 {
+                                clip-rule: evenodd;
+                            }
+
+                            .cls-3 {
+                            }
+
+                            .cls-4 {
+                            }
+
+                            .cls-5 {
+                                fill: #fff;
+                            }
+                            </style>
+                            <clipPath id="clip-path" transform="translate(0.69 0.51)">
+                                <path class="cls-1"
+                                      d="M27.75,0H95.13a27.83,27.83,0,0,1,27.75,27.75V94.57a27.83,27.83,0,0,1-27.75,27.74H27.75A27.83,27.83,0,0,1,0,94.57V27.75A27.83,27.83,0,0,1,27.75,0Z"></path>
+                            </clipPath>
+                            <clipPath id="clip-path-2" transform="translate(0.69 0.51)">
+                                <rect class="cls-2" width="122.88" height="122.31"></rect>
+                            </clipPath>
+                        </defs>
+                        <g class="cls-3">
+                            <g class="cls-4">
+                                <image width="260" height="257" transform="matrix(0.48, 0, 0, -0.48, 0, 123.36)"
+                                       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAEBCAYAAACexdu5AAAACXBIWXMAABcRAAAXEQHKJvM/AAAEFUlEQVR4Xu3dwXEdIRBFUb4kZ+HwHJbDcxrSeAG+hctVJgDO2cyG9aumoYfX8zzP68evAdzr+fl9jDHG22EdcJGPMcZ4vV6ndcAFPubn+f8q4Aq2DEBmhWDLAAxbBmCzAkGFAKgQgM3qIRxWAVdwygBkVQhyAdBUBDZKAyCaikBmIDxfh2XADda0o50DUFNRhQBoKgIbgQBEIABx7AhEhQBEIACZW4a398My4AYqBCACAYhZBiCrh6BQAFQIwGZOO55WAVewVwDin4pAVlNRIACaisDG689ANBWBeLkJyOoheP0Z8Bw8sNFUBKJCAKKbCEQgAHHsCGQ99npaBtxAaQDEsSMQ045ANBWBqBCAKA2AeA4eiAoBiEAAIhCA6CEAUSEAWcNNcgEwywBs3FQEYpYBiAoByHr9WYUAqBCAzXqXwSkD4KEWYOPqMhDHjkBsGYCYZQCyjh1VCEAXk3QVAT0EYCMQgDh2BLIqBLMMQBXC+2EZcAPTjkD0EICsm4qnZcANlAZAjD8D0VQEoqkIxNVlIEoDIJqKQOY9hNMq4AoqBCB6CEDWL9RMOwIqBGDjbUcgq6noYhJglgHYaCoCWRXC52EZcIP1xyRNRaAK4bAKuIKry0D8IAWIl5uAqBCA+IUakFUh6CoCph2BzbqHYMsAuIcAbGwZgPhBChAVApA17XhaBtxAhQBEIAARCEAEAhCzDEBMOwKxZQAiEIAYbgJilgGILQOQOctwWgVcQQ8BiC0DkPUcvFwA+smql5sALzcBG8NNQGwZgKx/KtoyAO4hABulARBNRSCaikDcQwCiqQjElgHIqhDeD8uAG6xfqKkQADcVgY2mIhBNRSCaikBWhfB5WAbcwCwDEMcLQNax42kZcAMVAhCBAMTFJCDr5Sb3EAA3FYHNPGVQIQBDUxHYuLoMRFMRiKYiEBUCEBeTgDhlADLvIZxWAVfwgxQgtgxANBWBzED4clMR7vZtjOEeArBxUxGIHgIQ/0MAYvwZGLUTD6uAi8xY0EQAhqYisHEPAYimIjDGmEWB8Wcgxp+BOHYEoqkIRFMRGH82C7YMQAw3AfkYY4zH/xDgcnOzoEIAYpYBiKYiEIEAxJYBiAoBiGlHILYMQPxTEYiXm4Dx103F8aa3CDhlADa2DMCwZQD+oUIAxt/jz/9dCNzCb9iBaB4AEQhAzDIAUSEAEQhAnDIAUSEAcTEJiFMGIAIByBpuOqwCrqBCACIQgNgyAFEhAHExCYhAADJvKtoyAEOFAGwEAhCBAEQgAHEPAYgKAYhAACIQgAgEIAIBiEAAIhCACAQgAgGIQAAiEIAIBCACAYhAACIQgAgEIAIBiEAAIhCACAQgAgGIQAAiEIAIBCACAYhAACIQgAgEIAIBiEAAIhCA/AafC2PbZ0osjAAAAABJRU5ErkJggg=="></image>
+                            </g>
+                        </g>
+                        <path class="cls-5"
+                              d="M85.36,78.92l2.72-17.76H71V49.63c0-4.86,2.38-9.59,10-9.59H88.8V24.92a94.45,94.45,0,0,0-13.75-1.2c-14,0-23.21,8.5-23.21,23.9V61.16H36.24V78.92h15.6v43.57H71V78.92Z"
+                              transform="translate(0.69 0.51)"></path>
+                    </svg>
+                    <span>Sign up with Facebook</span>
+                </a>
+                <a href="#"
+                   class="flex items-center justify-center space-x-2 text-gray-600 my-2 py-2 bg-gray-100 hover:bg-gray-200 rounded">
+                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 122.31">
+                        <defs>
+                            <style>.cls-1 {
+                                fill: #0a66c2;
+                            }
+
+                            .cls-1, .cls-2 {
+                                fill-rule: evenodd;
+                            }
+
+                            .cls-2 {
+                                fill: #fff;
+                            }
+                            </style>
+                        </defs>
+                        <title>linkedin-app</title>
+                        <path class="cls-1"
+                              d="M27.75,0H95.13a27.83,27.83,0,0,1,27.75,27.75V94.57a27.83,27.83,0,0,1-27.75,27.74H27.75A27.83,27.83,0,0,1,0,94.57V27.75A27.83,27.83,0,0,1,27.75,0Z"></path>
+                        <path class="cls-2"
+                              d="M49.19,47.41H64.72v8h.22c2.17-3.88,7.45-8,15.34-8,16.39,0,19.42,10.2,19.42,23.47V98.94H83.51V74c0-5.71-.12-13.06-8.42-13.06s-9.72,6.21-9.72,12.65v25.4H49.19V47.41ZM40,31.79a8.42,8.42,0,1,1-8.42-8.42A8.43,8.43,0,0,1,40,31.79ZM23.18,47.41H40V98.94H23.18V47.41Z"></path>
+                    </svg>
+                    <span>Sign up with LinkedIn</span>
+                </a>
             </div>
         </div>
     </div>
-</section>
+</div>
